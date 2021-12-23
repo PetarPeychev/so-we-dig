@@ -17,7 +17,7 @@ namespace SoWeDig
         public int MaxHealth { get; }
         public string Name { get; }
 
-        private float speed = Settings.PLAYER_SPEED * 50;
+        private float speed = Settings.PLAYER_SPEED * 10;
 
         public Player(Vector2 position, string name)
         {

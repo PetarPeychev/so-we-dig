@@ -7,6 +7,8 @@ namespace SoWeDig.Map
     public enum Background
     {
         AirWall,
-        DirtWall
+        DirtWall,
+        StoneWall,
+        GraniteWall,
     }
 }

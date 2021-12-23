@@ -8,16 +8,16 @@ namespace SoWeDig
 {
     public class Tile
     {
-        public Texture Foreground { get; }
-        public Texture Background { get; }
+        public Foreground Foreground { get; set; }
+        public Background Background { get; set; }
 
         public Tile()
         {
-            Foreground = Texture.Air;
-            Background = Texture.Air;
+            Foreground = Foreground.Air;
+            Background = Background.AirWall;
         }
 
-        public Tile(Texture foreground, Texture background)
+        public Tile(Foreground foreground, Background background)
         {
             Foreground = foreground;
             Background = background;

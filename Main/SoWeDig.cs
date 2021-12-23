@@ -43,10 +43,11 @@ namespace SoWeDig
             spriteBatch = new SpriteBatch(GraphicsDevice);
             spriteEngine = new SpriteEngine(Content);
 
-            world = new World(500, 1000);
+            world = new World(50, 100);
 
             camera.LoadContent();
             camera.Zoom = Settings.CAMERA_ZOOM;
+            //camera.Zoom = 0.015f;
             camera.Position = world.Player.Position + new Vector2(Settings.TILE_SIZE / 2, Settings.TILE_SIZE / 2);
             camera.Debug.Grid.AddLines(Settings.TILE_SIZE, Color.White, 4);
         }
@@ -71,7 +72,6 @@ namespace SoWeDig
 
             if (camera.Zoom < 0.5) camera.Zoom = 0.5f;
             else if (camera.Zoom > 1.5) camera.Zoom = 1.5f;
-            camera.Zoom = 0.01f;
 
             previousScrollValue = mouse.ScrollWheelValue;
 
@@ -82,7 +82,7 @@ namespace SoWeDig
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin(camera, samplerState: SamplerState.PointClamp);
             world.Draw(spriteBatch, spriteEngine);

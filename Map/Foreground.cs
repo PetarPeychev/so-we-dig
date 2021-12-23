@@ -7,7 +7,8 @@ namespace SoWeDig.Map
     public enum Foreground
     {
         Air,
+        Stone,
         Dirt,
-        Stone
+        Granite,
     }
 }
