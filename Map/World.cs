@@ -109,13 +109,25 @@ namespace SoWeDig
             {
                 return Data.Texture.Dirt1 + (type - 1);
             }
+            else if (foreground == Foreground.Clay)
+            {
+                return Data.Texture.Clay1 + (type - 1);
+            }
             else if (foreground == Foreground.Stone)
             {
                 return Data.Texture.Stone1 + (type - 1);
             }
+            else if (foreground == Foreground.Slate)
+            {
+                return Data.Texture.Slate1 + (type - 1);
+            }
             else if (foreground == Foreground.Granite)
             {
                 return Data.Texture.Granite1 + (type - 1);
+            }
+            else if (foreground == Foreground.Basalt)
+            {
+                return Data.Texture.Basalt1 + (type - 1);
             }
             else
             {
@@ -160,13 +172,25 @@ namespace SoWeDig
             {
                 return Data.Texture.DirtWall1 + (type - 1);
             }
-            if (background == Background.StoneWall)
+            else if (background == Background.ClayWall)
+            {
+                return Data.Texture.ClayWall1 + (type - 1);
+            }
+            else if (background == Background.StoneWall)
             {
                 return Data.Texture.StoneWall1 + (type - 1);
+            }
+            else if (background == Background.SlateWall)
+            {
+                return Data.Texture.SlateWall1 + (type - 1);
             }
             else if (background == Background.GraniteWall)
             {
                 return Data.Texture.GraniteWall1 + (type - 1);
+            }
+            else if (background == Background.BasaltWall)
+            {
+                return Data.Texture.BasaltWall1 + (type - 1);
             }
             else
             {
@@ -186,32 +210,51 @@ namespace SoWeDig
         {
             Tile[,] tiles = new Tile[height, width];
 
-            Random r = new Random();
+            int seed = 1;
+            Random r = new Random(seed);
+            double frequency = 0.3; // Adjust y distribution.
+            Perlin perlin = new Perlin(frequency, seed);
 
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    int randomInt = r.Next(y - 5, y);
+                    double perlinNoise = 0.5 + perlin.Get2D(x, y);
+                    double depthNoise = y + perlinNoise * 5;
 
-                    if (randomInt <= 33)
+                    if (depthNoise < 33) // generate dirt layer
                     {
-                        tiles[y, x] = new Tile(Foreground.Dirt, Background.DirtWall);
+                        if (perlinNoise < 0.6)
+                        {
+                            tiles[y, x] = new Tile(Foreground.Dirt, Background.DirtWall);
+                        }
+                        else
+                        {
+                            tiles[y, x] = new Tile(Foreground.Clay, Background.ClayWall);
+                        }
                     }
-                    else if (randomInt > 33 && randomInt <= 66)
+                    else if (depthNoise < 66) // generate stone layer
                     {
-                        tiles[y, x] = new Tile(Foreground.Stone, Background.StoneWall);
+                        if (perlinNoise < 0.6)
+                        {
+                            tiles[y, x] = new Tile(Foreground.Stone, Background.StoneWall);
+                        }
+                        else
+                        {
+                            tiles[y, x] = new Tile(Foreground.Slate, Background.SlateWall);
+                        }
                     }
-                    else if (randomInt > 66)
+                    else // generate granite layer
                     {
-                        tiles[y, x] = new Tile(Foreground.Granite, Background.GraniteWall);
+                        if (perlinNoise < 0.6)
+                        {
+                            tiles[y, x] = new Tile(Foreground.Granite, Background.GraniteWall);
+                        }
+                        else
+                        {
+                            tiles[y, x] = new Tile(Foreground.Basalt, Background.BasaltWall);
+                        }
                     }
-
-                    if (r.Next(0, 10) > 3)
-                    {
-                        tiles[y, x].Foreground = Foreground.Air;
-                    }
-
                 }
             }
 

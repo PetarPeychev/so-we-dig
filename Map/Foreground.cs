@@ -8,7 +8,10 @@ namespace SoWeDig.Map
     {
         Air,
         Stone,
+        Slate,
         Dirt,
+        Clay,
         Granite,
+        Basalt,
     }
 }

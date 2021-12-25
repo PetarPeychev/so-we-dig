@@ -8,7 +8,10 @@ namespace SoWeDig.Map
     {
         AirWall,
         DirtWall,
+        ClayWall,
         StoneWall,
+        SlateWall,
         GraniteWall,
+        BasaltWall,
     }
 }

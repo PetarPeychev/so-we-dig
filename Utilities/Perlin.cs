@@ -11,7 +11,7 @@ namespace SoWeDig.Utilities
         public static int NOISE_MAGIC_Z = 52591;
         public static int NOISE_MAGIC_SEED = 1013;
     }
-
+    
     class Perlin
     {
         private readonly double persistence;
